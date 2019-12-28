@@ -10,5 +10,18 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://stylish-eec22.firebaseio.com'
 });
+function splitString2Array(string) {
+  return String(string)
+    .replace(/\s+/g, '')
+    .split(',');
+}
 const firestore = admin.firestore();
-module.exports = { admin, express, bodyParser, functions, firestore, ajv };
+module.exports = {
+  admin,
+  express,
+  bodyParser,
+  functions,
+  firestore,
+  ajv,
+  splitString2Array
+};
