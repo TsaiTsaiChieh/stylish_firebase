@@ -1,0 +1,76 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Product</title>
+  </head>
+  <style>
+    input,
+    select,
+    button {
+      width: 200px;
+      height: 30px;
+      margin-bottom: 5px;
+    }
+  </style>
+  <body>
+    <form action="/test" method="POST" multiple>
+      Category
+      <select class="category">
+        <option value="women">women</option>
+        <option value="men">stmen</option>
+        <option value="accessories">accessories</option></select
+      ><br />
+      Title <input type="text" class="title" name="title" /><br />
+      Description
+      <input type="text" class="description" name="description" /><br />
+      Price <input type="text" class="price" name="price" /><br />
+      <hr />
+      Texture <input type="text" class="texture" name="texture" /><br />
+      Wash <input type="text" class="wash" name="wash" /><br />
+      Place <input type="text" class="place" name="place" /><br />
+      Note <input type="text" class="note" name="note" /><br />
+      Story <input type="text" class="story" name="story" /><br />
+      <hr />
+      Colors <input type="text" class="colors" name="colors" /><br />
+      Color Names
+      <input type="text" class="colorNames" name="colorNames" /><br />
+      Sizes <input type="text" class="sizes" name="sizes" /><br />
+      <hr />
+      Main Image<input
+        type="file"
+        accept="image/*"
+        class="image"
+        name="image"
+      /><br />
+      <button type="submit">Send</button>
+    </form>
+    <script src="./js/productDefault.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+    <script>
+      const config = {
+        apiKey: 'AIzaSyDEmHu2Q7owY4llHTq86U7g76sjYBuz6-c',
+        authDomain: 'stylish-eec22.firebaseapp.com',
+        databaseURL: 'https://stylish-eec22.firebaseio.com',
+        projectId: 'stylish-eec22',
+        storageBucket: 'stylish-eec22.appspot.com',
+        messagingSenderId: '375850364931',
+        appId: '1:375850364931:web:8eeecd9239f32bd3541e36',
+        measurementId: 'G-TWJXJTF5DF'
+      };
+      firebase.initializeApp(config);
+      const storage = firebase.storage();
+      document.querySelector('button').addEventListener('click', function(e) {
+        e.preventDefault();
+        // let file = e.target.file;
+        let file = document.querySelector('.image').files[0];
+        console.log(file);
+
+        let storageRef = firebase.storage().ref('photo/' + file.name);
+        storageRef.put(file);
+      });
+    </script>
+  </body>
+</html>
