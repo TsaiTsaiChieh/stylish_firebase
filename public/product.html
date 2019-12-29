@@ -15,7 +15,7 @@
     }
   </style>
   <body>
-    <form action="/test" method="POST" multiple>
+    <form action="/product" method="POST" enctype="multipart/form-data">
       Category
       <select class="category">
         <option value="women">women</option>
@@ -38,11 +38,20 @@
       <input type="text" class="colorNames" name="colorNames" /><br />
       Sizes <input type="text" class="sizes" name="sizes" /><br />
       <hr />
-      Main Image<input
+      Main Image
+      <input
         type="file"
         accept="image/*"
-        class="image"
-        name="image"
+        class="mainImage"
+        name="mainImage"
+      /><br />
+      Images
+      <input
+        type="file"
+        accept="image/*"
+        class="images"
+        name="images"
+        multiple
       /><br />
       <button type="submit">Send</button>
     </form>
@@ -50,27 +59,27 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
     <script>
-      const config = {
-        apiKey: 'AIzaSyDEmHu2Q7owY4llHTq86U7g76sjYBuz6-c',
-        authDomain: 'stylish-eec22.firebaseapp.com',
-        databaseURL: 'https://stylish-eec22.firebaseio.com',
-        projectId: 'stylish-eec22',
-        storageBucket: 'stylish-eec22.appspot.com',
-        messagingSenderId: '375850364931',
-        appId: '1:375850364931:web:8eeecd9239f32bd3541e36',
-        measurementId: 'G-TWJXJTF5DF'
-      };
-      firebase.initializeApp(config);
-      const storage = firebase.storage();
-      document.querySelector('button').addEventListener('click', function(e) {
-        e.preventDefault();
-        // let file = e.target.file;
-        let file = document.querySelector('.image').files[0];
-        console.log(file);
+      // const config = {
+      //   apiKey: 'AIzaSyDEmHu2Q7owY4llHTq86U7g76sjYBuz6-c',
+      //   authDomain: 'stylish-eec22.firebaseapp.com',
+      //   databaseURL: 'https://stylish-eec22.firebaseio.com',
+      //   projectId: 'stylish-eec22',
+      //   storageBucket: 'stylish-eec22.appspot.com',
+      //   messagingSenderId: '375850364931',
+      //   appId: '1:375850364931:web:8eeecd9239f32bd3541e36',
+      //   measurementId: 'G-TWJXJTF5DF'
+      // };
+      // firebase.initializeApp(config);
+      // const storage = firebase.storage();
+      // document.querySelector('button').addEventListener('click', function(e) {
+      //   e.preventDefault();
+      //   // let file = e.target.file;
+      //   let file = document.querySelector('.image').files[0];
+      //   console.log(file);
 
-        let storageRef = firebase.storage().ref('photo/' + file.name);
-        storageRef.put(file);
-      });
+      //   let storageRef = firebase.storage().ref('photo/' + file.name);
+      //   storageRef.put(file);
+      // });
     </script>
   </body>
 </html>
