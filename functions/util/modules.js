@@ -5,8 +5,12 @@ const bodyParser = require('body-parser');
 const functions = require('firebase-functions');
 const Ajv = require('ajv');
 const ajv = new Ajv({ allErrors: true, useDefaults: true });
-const multer = require('multer');
-// const storage = require('@google-cloud/firestore');
+const path = require('path');
+const os = require('os');
+const fs = require('fs');
+const Busboy = require('busboy');
+// const mimeType = require('mime-types');
+const uuidv1 = require('uuid/v1'); // for unique id generation
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -29,5 +33,10 @@ module.exports = {
   ajv,
   splitString2Array,
   bucket,
-  multer
+  path,
+  os,
+  fs,
+  Busboy,
+
+  uuidv1
 };
