@@ -20,11 +20,10 @@ function busboyProcessor(req, res, next) {
   const tmpdir = modules.os.tmpdir();
   // This code will process each file uploaded.
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-    // console.log(`Busboy file ${fieldname}: ${filename}`);
     const filepath = modules.path.join(tmpdir, filename);
-    // uploads[`${fieldname}_${Date.now()}`] = filepath;
-
-    uploads[fieldname] = filepath;
+    uploads[`${fieldname}_${Date.now()}`] = filepath;
+    // for test
+    // uploads[fieldname] = filepath;
     const writeStream = modules.fs.createWriteStream(filepath);
     file.pipe(writeStream);
 
@@ -61,6 +60,8 @@ function busboyProcessor(req, res, next) {
   });
   busboy.end(req.rawBody);
 }
+
+// ref: https://config9.com/apps/firebase/upload-files-to-firebase-storage-using-node-js/
 async function upload2bucket(req, res, next) {
   let gcpResponses = [];
   let uuids = [];
@@ -80,39 +81,19 @@ async function upload2bucket(req, res, next) {
         // }
       })
     );
+    // rm file in memory
+    modules.fs.unlinkSync(req.filePath[key]);
   }
   let urls = [];
-  // console.log(gcpResponses[0]);
-  // console.log('.....', gcpResponses[1]);
   for (let i = 0; i < gcpResponses.length; i++) {
     let file = gcpResponses[i][0];
     urls.push(
-      'https://firebasestorage.googleapis.com/v0/b/' +
-        file.bucket.id +
-        '/o/' +
-        encodeURIComponent(file.name) +
-        '?alt=media&token=' +
-        uuids[i]
+      `https://firebasestorage.googleapis.com/v0/b/${
+        file.bucket.id
+      }/o/${encodeURIComponent(file.name)}?alt=media&token=${uuids[i]}`
     );
   }
   req.urls = urls;
-  console.log(urls);
-
-  // console.log(gcpResponse.length);
-  // let a = gcpResponse[0][0];
-  // let b = gcpResponse[1][0];
-  // console.log(b.name, gcpResponse[1][1].size);
-
-  // console.log(a.name, gcpResponse[0][1].size, gcpResponse[0].length);
-
-  // for (let i = 0; i < a.length; i++) {
-  //   console.log(i, a[i].name, a[i].size);
-
-  //   // let file = gcpResponse[0][i];
-  //   // console.log(file);
-  // }
-
-  // req.fileUrl =
   next();
 }
 module.exports = { busboyProcessor, upload2bucket };

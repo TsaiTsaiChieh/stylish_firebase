@@ -1,3 +1,3 @@
 const productFolderName = 'products';
-
-module.exports = { productFolderName };
+const productFirestoreName = productFolderName;
+module.exports = { productFolderName, productFirestoreName };

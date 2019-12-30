@@ -37,6 +37,5 @@ module.exports = {
   os,
   fs,
   Busboy,
-
   uuidv1
 };
