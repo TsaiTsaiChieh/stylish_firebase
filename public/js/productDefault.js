@@ -12,6 +12,6 @@ document.querySelector('.wash').value = '手洗（水溫40度';
 document.querySelector('.place').value = '韓國';
 document.querySelector('.note').value = '實品顏色以單品照為主';
 document.querySelector('.story').value = '你絕對不能錯過的超值商品';
-document.querySelector('.colors').value = '334455, FFFFFF, AABAAB';
+document.querySelector('.colors').value = '334455, FFFFFF';
 document.querySelector('.colorNames').value = '深藍, 白色';
 document.querySelector('.sizes').value = 'S, M';
